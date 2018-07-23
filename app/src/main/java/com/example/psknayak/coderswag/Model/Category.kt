@@ -1,0 +1,6 @@
+package com.example.psknayak.coderswag.Model
+
+class Category(val title:String, val image:String)
+{
+
+}
