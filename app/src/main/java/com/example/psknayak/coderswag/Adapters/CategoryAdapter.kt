@@ -10,6 +10,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.psknayak.coderswag.Model.Category
 import com.example.psknayak.coderswag.R
+import com.example.psknayak.coderswag.R.id.categoryImage
+import com.example.psknayak.coderswag.R.id.categoryName
 
 class CategoryAdapter(context:Context,categories:List<Category>): BaseAdapter(){
 
@@ -17,16 +19,27 @@ class CategoryAdapter(context:Context,categories:List<Category>): BaseAdapter(){
     val categories = categories
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val categoryView:View = LayoutInflater.from(context).inflate(R.layout.category_list_item, null)
-        val categoryImage:ImageView = categoryView.findViewById(R.id.categoryImage)
-        val categoryName:TextView = categoryView.findViewById(R.id.categoryName)
 
-        val category = categories[position]
+        val categoryView: View
+        val holder: ViewHolder
 
-        val resourceId = context.resources.getIdentifier(category.image,"drawable",context.packageName)
-        categoryImage.setImageResource(resourceId)
-        categoryName.text = category.title
-        return categoryView
+        if (convertView == null) {
+            categoryView = LayoutInflater.from(context).inflate(R.layout.category_list_item, null)
+            holder = ViewHolder()
+            holder.categoryImage = categoryView.findViewById(categoryImage)
+            holder.categoryName = categoryView.findViewById(categoryName)
+
+            categoryView.tag = holder
+        }else{
+            holder = convertView.tag as ViewHolder
+            categoryView = convertView
+        }
+            val category = categories[position]
+
+            val resourceId = context.resources.getIdentifier(category.image, "drawable", context.packageName)
+            holder.categoryImage?.setImageResource(resourceId)
+            holder.categoryName?.text = category.title
+            return categoryView
     }
 
     override fun getItem(position: Int): Any {
@@ -41,4 +54,8 @@ class CategoryAdapter(context:Context,categories:List<Category>): BaseAdapter(){
          return categories.count()//To change body of created functions use File | Settings | File Templates.
     }
 
+    private class ViewHolder{
+        var categoryImage:ImageView? = null
+        var categoryName:TextView? = null
+    }
 }
