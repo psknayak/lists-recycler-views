@@ -13,10 +13,8 @@ import com.example.psknayak.coderswag.R
 import com.example.psknayak.coderswag.R.id.categoryImage
 import com.example.psknayak.coderswag.R.id.categoryName
 
-class CategoryAdapter(context:Context,categories:List<Category>): BaseAdapter(){
+class CategoryAdapter(val context: Context, val categories: List<Category>): BaseAdapter(){
 
-    val context = context
-    val categories = categories
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
